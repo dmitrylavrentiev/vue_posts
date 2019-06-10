@@ -1,7 +1,7 @@
-import Vue from 'vue'
 import axios from 'axios'
 
 import { COMMENTS, POST } from '../mutation-types'
+import jsonplaceholderApi from '../../services/api/jsonplaceholder'
 
 export default {
     state: {
@@ -16,11 +16,11 @@ export default {
         [POST]({commit}, post_id) {
 
             function getPost(post_id) {
-                return Vue.axios.get('https://jsonplaceholder.typicode.com/posts/' + post_id);
+                return jsonplaceholderApi.getPost(post_id);
             }
 
             function getComents(post_id) {
-                return Vue.axios.get('https://jsonplaceholder.typicode.com/comments?postId=' + post_id);
+                return jsonplaceholderApi.getComents(post_id);
             }
 
             axios.all([getPost(post_id), getComents(post_id)])

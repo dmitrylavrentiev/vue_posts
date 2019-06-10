@@ -1,5 +1,5 @@
-import Vue from 'vue'
 import { POSTS, USERS } from '../mutation-types'
+import jsonplaceholderApi from '../../services/api/jsonplaceholder'
 
 export default {
     state: {
@@ -12,7 +12,7 @@ export default {
     },
     actions: {
         [POSTS] ({commit}){
-            Vue.axios.get('https://jsonplaceholder.typicode.com/posts')
+            jsonplaceholderApi.getPosts()
                 .then(({data}) => {
                     commit(POSTS, data)
                 })
@@ -21,7 +21,7 @@ export default {
                 })
         },
         [USERS] ({commit}){
-            Vue.axios.get('https://jsonplaceholder.typicode.com/users')
+            jsonplaceholderApi.getUsers()
                 .then(({data}) => {
                     commit(USERS, data)
                 })

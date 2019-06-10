@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import Vue from 'vue'
+    import jsonplaceholderApi from '../services/api/jsonplaceholder'
 
     export default {
         data: () => ({
@@ -71,15 +71,7 @@
         methods: {
             validate() {
                 if (this.$refs.form.validate()) {
-                    Vue.axios({
-                        method: 'post',
-                        url: 'https://jsonplaceholder.typicode.com/posts/',
-                        data: {
-                            userId: 1,
-                            title: this.title,
-                            body: this.body
-                        }
-                    });
+                    jsonplaceholderApi.setPost(this.title, this.body);
                 }
             },
             reset() {
