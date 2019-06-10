@@ -12,7 +12,7 @@
               {{post.body}}
             </v-card-text>
             <v-card-actions>
-              <v-card>
+              <v-card class="w100">
                 <v-list three-line class="pa-0">
                   <template v-for="(comment, index) in comments">
                     <v-list-tile
@@ -54,16 +54,16 @@
 </template>
 
 <script>
-  import {GET_POST, LOADING} from '../store/mutation-types'
+  import {POST, LOADING} from '../store/mutation-types'
 
   export default {
     created: function () {
       this.$store.commit(LOADING, true);
-      this.$store.dispatch(GET_POST, this.$route.params.post_id)
+      this.$store.dispatch(POST, this.$route.params.post_id)
               .then(() => {
                 setTimeout(() => {
                   this.$store.commit(LOADING, false);
-                }, 1000)
+                }, 500)
 
               });
     },
@@ -80,3 +80,9 @@
     },
   }
 </script>
+
+<style>
+  .w100{
+    width: 100%;
+  }
+</style>

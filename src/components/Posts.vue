@@ -22,12 +22,12 @@
 </template>
 
 <script>
-  import {GET_POSTS, GET_USERS} from '../store/mutation-types'
+  import {POSTS, USERS} from '../store/mutation-types'
 
   export default {
     created: function () {
-      this.$store.dispatch(GET_POSTS);
-      this.$store.dispatch(GET_USERS);
+      this.$store.dispatch(POSTS);
+      this.$store.dispatch(USERS);
     },
     computed: {
       postsUsers() {

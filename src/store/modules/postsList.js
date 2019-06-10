@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { GET_POSTS, GET_USERS } from '../mutation-types'
+import { POSTS, USERS } from '../mutation-types'
 
 export default {
     state: {
@@ -7,23 +7,23 @@ export default {
         users: [],
     },
     mutations: {
-        [GET_POSTS]: (state, posts) => state.posts = posts,
-        [GET_USERS]: (state, users) => state.users = users,
+        [POSTS]: (state, posts) => state.posts = posts,
+        [USERS]: (state, users) => state.users = users,
     },
     actions: {
-        [GET_POSTS] ({commit}){
+        [POSTS] ({commit}){
             Vue.axios.get('https://jsonplaceholder.typicode.com/posts')
                 .then(({data}) => {
-                    commit(GET_POSTS, data)
+                    commit(POSTS, data)
                 })
                 .catch( (e) => {
                     console.log(e);
                 })
         },
-        [GET_USERS] ({commit}){
+        [USERS] ({commit}){
             Vue.axios.get('https://jsonplaceholder.typicode.com/users')
                 .then(({data}) => {
-                    commit(GET_USERS, data)
+                    commit(USERS, data)
                 })
                 .catch( (e) => {
                     console.log(e);
