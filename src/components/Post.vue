@@ -54,29 +54,27 @@
 </template>
 
 <script>
-  import {POST, LOADING} from '../store/mutation-types'
+  import { mapGetters } from 'vuex';
+
+  import {GET_COMMENTS, GET_LOADING, GET_POST, LOAD_POST, MUTATE_LOADING} from '../store/mutation-types'
 
   export default {
     created: function () {
-      this.$store.commit(LOADING, true);
-      this.$store.dispatch(POST, this.$route.params.post_id)
+      this.$store.commit(MUTATE_LOADING, true);
+      this.$store.dispatch(LOAD_POST, this.$route.params.post_id)
               .then(() => {
                 setTimeout(() => {
-                  this.$store.commit(LOADING, false);
+                  this.$store.commit(MUTATE_LOADING, false);
                 }, 500)
 
               });
     },
     computed: {
-      post(){
-        return this.$store.state.post.post
-      },
-      comments(){
-        return this.$store.state.post.comments
-      },
-      isLoading(){
-        return this.$store.state.loading
-      },
+      ...mapGetters({
+        post: GET_POST,
+        comments: GET_COMMENTS,
+        isLoading: GET_LOADING
+      })
     },
   }
 </script>

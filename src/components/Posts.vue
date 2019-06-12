@@ -1,19 +1,19 @@
 <template>
   <v-container>
     <h2 class="display-4">Posts</h2>
-    <v-layout row wrap v-if="postsUsers && postsUsers.length">
-      <v-flex xs12 sm6 md4 pa-2 v-for="postUsers in postsUsers" :key="postUsers.id">
+    <v-layout row wrap v-if="posts && posts.length">
+      <v-flex xs12 sm6 md4 pa-2 v-for="post in posts" :key="post.id">
         <v-card elevation-5 height="100%">
           <v-card-title>
-            <router-link :to="{ name: 'post', params: { post_id: postUsers.id }}">
-              <span class="headline font-weight-bold" :title="postUsers.title">{{postUsers.title}}</span>
+            <router-link :to="{ name: 'post', params: { post_id: post.id }}">
+              <span class="headline font-weight-bold" :title="post.title">{{ post.title }}</span>
             </router-link>
           </v-card-title>
           <v-card-text class="font-weight-light">
-            {{postUsers.body}}
+            {{ post.body }}
           </v-card-text>
           <v-card-actions>
-            {{postUsers.userName}}
+            {{ user(post.userId).name }}
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -22,17 +22,24 @@
 </template>
 
 <script>
-  import {POSTS, USERS} from '../store/mutation-types'
+  import { mapGetters, mapState } from 'vuex';
+
+  import { GET_USER, LOAD_POSTS, LOAD_USERS } from "../store/mutation-types";
 
   export default {
     created: function () {
-      this.$store.dispatch(POSTS);
-      this.$store.dispatch(USERS);
+      this.$store.dispatch(LOAD_USERS);
+      this.$store.dispatch(LOAD_POSTS);
+
     },
     computed: {
-      postsUsers() {
-        return this.$store.getters.getPostsUsers;
-      }
+      ...mapGetters({
+        user: GET_USER,
+      }),
+      ...mapState({
+        posts: state => state.postsList.posts,
+        users: state => state.postsList.users,
+      }),
     }
   }
 </script>

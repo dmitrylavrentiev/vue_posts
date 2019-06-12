@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import { LOADING } from './mutation-types'
+import {GET_LOADING, MUTATE_LOADING} from './mutation-types'
 import post from './modules/post'
 import postsList from './modules/postsList'
 
@@ -14,10 +14,10 @@ export default new Vuex.Store({
     loading: true,
   },
   getters: {
-    getIsLoading: state => () => state.loading
+    [GET_LOADING]: state => () => state.loading
   },
   mutations: {
-    [LOADING]: (state, progress) => state.loading = progress,
+    [MUTATE_LOADING]: (state, progress) => state.loading = progress,
   },
   modules: {
     post,

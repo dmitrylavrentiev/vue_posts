@@ -1,5 +1,5 @@
-import { POSTS, USERS } from '../mutation-types'
 import jsonplaceholderApi from '../../services/api/jsonplaceholder'
+import { MUTATE_POSTS, MUTATE_USERS, LOAD_POSTS, LOAD_USERS, GET_USER } from "../mutation-types";
 
 export default {
     state: {
@@ -7,23 +7,24 @@ export default {
         users: [],
     },
     mutations: {
-        [POSTS]: (state, posts) => state.posts = posts,
-        [USERS]: (state, users) => state.users = users,
+        [MUTATE_POSTS]: (state, posts) => state.posts = posts,
+        [MUTATE_USERS]: (state, users) => state.users = users,
     },
     actions: {
-        [POSTS] ({commit}){
+        [LOAD_POSTS] ({commit}) {
             jsonplaceholderApi.getPosts()
                 .then(({data}) => {
-                    commit(POSTS, data)
+                    commit(MUTATE_POSTS, data)
                 })
                 .catch( (e) => {
                     console.log(e);
                 })
         },
-        [USERS] ({commit}){
+        [LOAD_USERS] ({commit}) {
             jsonplaceholderApi.getUsers()
                 .then(({data}) => {
-                    commit(USERS, data)
+                    //debugger;
+                    commit(MUTATE_USERS, data)
                 })
                 .catch( (e) => {
                     console.log(e);
@@ -31,16 +32,17 @@ export default {
         },
     },
     getters: {
-        getPostsUsers: state => {
+        [GET_USER]: state => id => {
+            debugger;
             const users = state.users;
-            return state.posts.map( post => {
-                users.forEach( user => {
-                    if(post.userId === user.id){
-                        post['userName'] = user.name;
-                    }
-                });
-                return post;
-            })
+            let userRes = {};
+            users.forEach(user => {
+                if (user.id === id) {
+                    userRes = user;
+                }
+            });
+            return userRes;
+
         },
     }
 }

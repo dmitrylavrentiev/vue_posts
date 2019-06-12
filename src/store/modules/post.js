@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-import { COMMENTS, POST } from '../mutation-types'
 import jsonplaceholderApi from '../../services/api/jsonplaceholder'
+import {GET_COMMENTS, GET_POST, LOAD_POST, MUTATE_COMMENTS, MUTATE_POST, MUTATE_POSTS} from "../mutation-types";
 
 export default {
     state: {
@@ -9,11 +9,11 @@ export default {
         comments: [],
     },
     mutations: {
-        [POST]: (state, post) => state.post = post,
-        [COMMENTS]: (state, comments) => state.comments = comments,
+        [MUTATE_POST]: (state, post) => state.post = post,
+        [MUTATE_COMMENTS]: (state, comments) => state.comments = comments,
     },
     actions: {
-        [POST]({commit}, post_id) {
+        [LOAD_POST] ({commit}, post_id) {
 
             function getPost(post_id) {
                 return jsonplaceholderApi.getPost(post_id);
@@ -26,17 +26,18 @@ export default {
             axios.all([getPost(post_id), getComents(post_id)])
                 .then(
                     axios.spread((post, comments) => {
-                        commit(POST, post.data);
-                        commit(COMMENTS, comments.data);
+                        commit(MUTATE_POSTS, post.data);
+                        commit(MUTATE_COMMENTS, comments.data);
                     }))
                 .catch((post, comments) => {
-                    commit(POST, post);
-                    commit(COMMENTS, comments);
+                    commit(MUTATE_POSTS, post);
+                    commit(MUTATE_COMMENTS, comments);
                     //console.log(post, comments);
                 });
         }
     },
     getters: {
-
+        [GET_POST]: state => state.post,
+        [GET_COMMENTS]: state => state.comments,
     }
 }
