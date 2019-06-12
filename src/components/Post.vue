@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
 
   import {GET_COMMENTS, GET_LOADING, GET_POST, LOAD_POST, MUTATE_LOADING} from '../store/mutation-types'
 
@@ -63,6 +63,7 @@
       this.$store.commit(MUTATE_LOADING, true);
       this.$store.dispatch(LOAD_POST, this.$route.params.post_id)
               .then(() => {
+                debugger;
                 setTimeout(() => {
                   this.$store.commit(MUTATE_LOADING, false);
                 }, 500)
@@ -74,7 +75,10 @@
         post: GET_POST,
         comments: GET_COMMENTS,
         isLoading: GET_LOADING
-      })
+      }),
+      ...mapState({
+        isLoading: state => state.loading,
+      }),
     },
   }
 </script>

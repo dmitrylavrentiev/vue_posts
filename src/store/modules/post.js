@@ -26,11 +26,11 @@ export default {
             axios.all([getPost(post_id), getComents(post_id)])
                 .then(
                     axios.spread((post, comments) => {
-                        commit(MUTATE_POSTS, post.data);
+                        commit(MUTATE_POST, post.data);
                         commit(MUTATE_COMMENTS, comments.data);
                     }))
                 .catch((post, comments) => {
-                    commit(MUTATE_POSTS, post);
+                    commit(MUTATE_POST, post);
                     commit(MUTATE_COMMENTS, comments);
                     //console.log(post, comments);
                 });
