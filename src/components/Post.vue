@@ -19,7 +19,6 @@
                             :key="comment.id"
                             avatar
                             ripple
-                            @click="toggle(index)"
                     >
                       <v-list-tile-content>
                         <v-list-tile-title>{{ comment.name }}</v-list-tile-title>
@@ -63,7 +62,6 @@
       this.$store.commit(MUTATE_LOADING, true);
       this.$store.dispatch(LOAD_POST, this.$route.params.post_id)
               .then(() => {
-                debugger;
                 setTimeout(() => {
                   this.$store.commit(MUTATE_LOADING, false);
                 }, 500)

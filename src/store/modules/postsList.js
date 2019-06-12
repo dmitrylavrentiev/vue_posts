@@ -23,7 +23,6 @@ export default {
         [LOAD_USERS] ({commit}) {
             jsonplaceholderApi.getUsers()
                 .then(({data}) => {
-                    //debugger;
                     commit(MUTATE_USERS, data)
                 })
                 .catch( (e) => {
@@ -33,7 +32,6 @@ export default {
     },
     getters: {
         [GET_USER]: state => id => {
-            debugger;
             const users = state.users;
             let userRes = {};
             users.forEach(user => {

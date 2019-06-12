@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import jsonplaceholderApi from '../../services/api/jsonplaceholder'
-import {GET_COMMENTS, GET_POST, LOAD_POST, MUTATE_COMMENTS, MUTATE_POST, MUTATE_POSTS} from "../mutation-types";
+import {GET_COMMENTS, GET_POST, LOAD_POST, MUTATE_COMMENTS, MUTATE_POST} from "../mutation-types";
 
 export default {
     state: {
