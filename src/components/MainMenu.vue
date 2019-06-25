@@ -4,6 +4,8 @@
         <v-toolbar-items>
             <v-btn @click="routeHome" flat>Home</v-btn>
             <v-btn @click="routeAddPost" flat>Add post</v-btn>
+            <v-btn @click="lesson1" flat>Color</v-btn>
+            <v-btn @click="lessons" flat>Lessons</v-btn>
         </v-toolbar-items>
     </v-toolbar>
 </template>
@@ -17,6 +19,12 @@
             },
             routeAddPost(){
                 this.$router.push({ name: 'add_post'});
+            },
+            lesson1(){
+                this.$router.push({ name: 'lesson1'});
+            },
+            lessons(){
+                this.$router.push({ name: 'lessons'});
             },
         }
     }
